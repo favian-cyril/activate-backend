@@ -34,7 +34,9 @@ export class UrlController {
   }
 
   @Get()
-  async getAll(@Query('ids') ids: string): Promise<{ [x: string]: string }[]> {
+  async getAll(
+    @Query('ids') ids: string,
+  ): Promise<{ key: string; value: string }[]> {
     const idArray = ids.split(',');
     if (idArray.length === 0) {
       throw new HttpException('ids param required', HttpStatus.BAD_REQUEST);
@@ -51,9 +53,9 @@ export class UrlController {
   }
 
   @Get(':id')
-  async getOriginalUrl(@Param('id') id: string): Promise<string> {
+  async getOriginalUrl(@Param('id') id: string): Promise<{ url: string }> {
     const url = await this.urlService.getUrl(id);
-    if (url) return url;
+    if (url) return { url };
     else throw new HttpException('Url not found', HttpStatus.NOT_FOUND);
   }
 }

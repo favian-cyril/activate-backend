@@ -10,11 +10,11 @@ export class UrlService {
     this.client = this.redis.getClient();
   }
 
-  async getAllUrls(ids: string[]): Promise<{ [x: string]: string }[]> {
+  async getAllUrls(ids: string[]): Promise<{ key: string; value: string }[]> {
     const queries = ids.map(async (key) => {
       const value = await this.getUrl(key);
       if (value) {
-        return { [key]: value };
+        return { key, value };
       }
       throw Error('Not found');
     });
