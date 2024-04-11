@@ -23,7 +23,10 @@ export class UrlService {
 
   async shortenUrl(originalUrl: string): Promise<string> {
     let shortId: string;
-
+    const urlRegex = /^(http|https):\/\/[^ "]+$/;
+    if (!urlRegex.test(originalUrl)) {
+      throw Error('not a valid url');
+    }
     // Generate a unique hash until it is not already in use
     do {
       shortId = Math.random().toString(36).slice(2, 10);

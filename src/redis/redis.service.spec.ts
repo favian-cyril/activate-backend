@@ -20,11 +20,11 @@ describe('RedisService', () => {
     }).compile();
 
     service = module.get<RedisService>(RedisService);
-    redisClient = service.getClient(); // Get the mocked Redis client
+    redisClient = service.getClient();
   });
 
   afterEach(() => {
-    jest.clearAllMocks(); // Clear mock calls after each test
+    jest.clearAllMocks();
   });
 
   it('should be defined', () => {
